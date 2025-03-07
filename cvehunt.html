@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Jay Patel</title>
+    <style>
+        /* Global Styles */
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('images/wallpaper-2.2.jpeg') no-repeat center center / cover fixed;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            text-align: center;
+        }
+
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease-in-out;
+        }
+
+        a:hover {
+            color: #00ff84;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #00ff84;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        header .logo:hover {
+            color: #ff0090;
+            transform: scale(1.1);
+        }
+
+        header nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        header nav ul li {
+            position: relative;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        header nav ul li:hover {
+            transform: scale(1.1);
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            min-width: 160px;
+            box-shadow: 0px 5px 10px rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            display: block;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(0, 255, 132, 0.2);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Hero Section */
+        .heading {
+            font-size: 60px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin: 50px 0;
+            text-shadow: 0px 0px 20px rgba(0, 255, 255, 0.8);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Image Container - Flexbox Fix */
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 90%;
+            margin: auto;
+            align-items: stretch;
+        }
+
+        /* Each Image Box */
+        .image-container .info {
+            width: calc(33.33% - 20px);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            transition: transform 0.3s ease-in-out;
+            text-align: left;
+        }
+
+        .image-container .info:hover {
+            transform: translateY(-10px);
+        }
+
+        .info h2 {
+            font-size: 22px;
+            border-bottom: 2px solid #00ff84;
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        .info img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.5);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .info img:hover {
+            transform: scale(1.05);
+        }
+
+        .info p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-top: 10px;
+            flex-grow: 1;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .image-container .info {
+                width: calc(50% - 20px);
+            }
+
+            .dropdown-content {
+                position: static;
+                display: block;
+                background: transparent;
+                box-shadow: none;
+            }
+
+            .dropdown-content a {
+                padding: 10px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .image-container .info {
+                width: 100%;
+            }
+        }
+
+        /* Stylish Read More button */
+        #read-more-btn {
+            background: transparent;
+            border: none;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s ease-in-out;
+            margin-left: 5px;
+        }
+
+        @keyframes flicker {
+            0% {
+                opacity: 1;
+                text-shadow: 0 0 10px #00ff84, 0 0 20px #00ff84, 0 0 30px #00ff84;
+            }
+
+            50% {
+                opacity: 0.7;
+                text-shadow: 0 0 5px #00ff84, 0 0 15px #00ff84, 0 0 25px #00ff84;
+            }
+
+            100% {
+                opacity: 1;
+                text-shadow: 0 0 10px #00ff84, 0 0 20px #00ff84, 0 0 30px #00ff84;
+            }
+        }
+
+        .whoami-neon {
+            font-size: 45px;
+            font-weight: bold;
+            color: #00ff84;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px #00ff84, 0 0 20px #00ff84, 0 0 30px #00ff84;
+            animation: flicker 1.5s infinite alternate;
+        }
+
+        @keyframes flicker {
+            0% {
+                opacity: 1;
+                text-shadow: 0 0 10px #00ff84, 0 0 20px #00ff84, 0 0 30px #00ff84;
+            }
+
+            50% {
+                opacity: 0.7;
+                text-shadow: 0 0 5px #00ff84, 0 0 15px #00ff84, 0 0 25px #00ff84;
+            }
+
+            100% {
+                opacity: 1;
+                text-shadow: 0 0 10px #00ff84, 0 0 20px #00ff84, 0 0 30px #00ff84;
+            }
+        }
+
+        .whoami-neon {
+            font-size: 45px;
+            font-weight: bold;
+            color: #00ff84;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px #00ff84, 0 0 20px #00ff84, 0 0 30px #00ff84;
+            animation: flicker 1.5s infinite alternate;
+        }
+
+        @keyframes neon-glow {
+            0% {
+                text-shadow: 0 0 5px #00ff84, 0 0 10px #00ff84, 0 0 15px #00ff84;
+            }
+
+            50% {
+                text-shadow: 0 0 10px #00ff84, 0 0 20px #00ff84, 0 0 30px #00ff84;
+            }
+
+            100% {
+                text-shadow: 0 0 5px #00ff84, 0 0 10px #00ff84, 0 0 15px #00ff84;
+            }
+        }
+
+        .whoami-neonex {
+            font-size: 48px;
+            font-weight: bold;
+            color: #00ff84;
+            text-transform: uppercase;
+            animation: neon-glow 1.5s infinite alternate;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo"><a href="index5.html">JAY PATEL</a></div>
+        <nav>
+            <ul>
+                <li><a href="index5.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <!-- <li><a href="Experience.html">Experience</a></li> -->
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Bug Hunting</a>
+                    <div class="dropdown-content">
+                        <a href="bughunt.html">vulnerabilities</a>
+                        <a href="cvehunt.html">Hunt's CVE</a>
+                    </div>
+                </li>
+                <li><a href="Education.html">Education</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Certificate</a>
+                    <div class="dropdown-content">
+                        <a href="cert.html">CTF Certificate's</a>
+                        <a href="professional-cert.html">Professional Certificate's</a>
+                    </div>
+                </li>
+                <li><a href="projects.html">Projects</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="aboutme">
+        <h1 class="heading">
+            <snap class="whoami-neonex"># Hunt CVE</snap>
+        </h1>
+        <div class="image-container">
+            <div class="info">
+                <h2 class="whoami-neon"># CVE-2025-27145</h2>
+                <img src="images/exprience/cve-xss.png" class="clickable-image">
+                <p>🛑 DOM-Based XSS Vulnerability Found! 💻🔍<br><br>
+                    🚨 Summary: 💉<br>
+                    A DOM-Based XSS was discovered in copyparty, a portable fileserver. The vulnerability is considered
+                    low-risk.<br><br>
+                    🔎 Details:<br>
+                    By handing someone a maliciously-named file, and then tricking them into dragging the file into
+                    copyparty's Web-UI, an attacker could execute arbitrary javascript with the same privileges as that
+                    user.
+                    <span id="more-text" style="display: none;">
+                        For example, this could give unintended read-access to files owned by that user. The bug is
+                        triggered by the drag-drop action itself; it is not necessary to actually initiate the upload.
+                        The file must be empty (zero bytes).<br><br>
+                        ⚠️ Key Risks:<br>
+                        🗂️ Unintended read access to user-owned files<br>
+                        📂 Exploitation occurs during drag-and-drop, before upload starts<br>
+                        📝 File must be empty (zero bytes) <br><br>
+                        💡 Note:<br>
+                        As a general-purpose webserver, it is intentionally possible to upload HTML-files with arbitrary
+                        javascript in <code>&lt;script&gt;</code> tags, which will execute when the file is opened. The
+                        difference is that this vulnerability would trigger execution of javascript during the act of
+                        uploading, and not when the uploaded file was opened.
+                        🛠 Proof of Concept (PoC):<br>
+                        1️⃣ Create an empty file with the following name:<br>
+                        <code>&lt;img src=x onerror="alert(1)"&gt;</code><br>
+                        2️⃣ Drag-and-drop the file into the browser to initiate an upload<br>
+                        3️⃣ 🚀 JavaScript executes immediately! (alert(1))<br><br>
+
+                        🔐 Mitigation Strategies:<br>
+                        ✅ Implement proper input validation to sanitize filenames<br>
+                        ✅ Restrict special characters in filenames<br><br>
+
+                        🌐 More Information:<br>
+                        🔗 GitHub Security Advisory: https://github.com/9001/copyparty/security/advisories/GHSA-m2jw-cj8v-937r<br>
+                        🔗 Snyk Security Report: https://security.snyk.io/vuln/SNYK-PYTHON-COPYPARTY-8746064<br><br>
+                        📢 Follow My Cybersecurity Journey! 🌍🔐<br>
+                        🔗 LinkedIn: https://in.linkedin.com/in/pateljay48
+                    </span>
+                    <button id="read-more-btn" class="whoami-neon read-more-btn" onclick="toggleText()">Read
+                        More</button>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal for Image Display -->
+    <div id="imageModal" class="modal">
+        <span class="close-btn">&times;</span>
+        <img id="modalImage">
+    </div>
+
+    <script>
+        // Image Modal Functionality
+        const images = document.querySelectorAll('.clickable-image');
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeBtn = document.querySelector('.close-btn');
+
+        images.forEach(img => {
+            img.addEventListener('click', function () {
+                modal.style.display = 'flex';
+                modalImage.src = this.src;
+            });
+        });
+
+        closeBtn.addEventListener('click', function () {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', function (event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        window.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Read More Toggle for Multiple Buttons
+        document.querySelectorAll('.read-more-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                let moreText = this.previousElementSibling; // Gets the <span> directly before the button
+                if (moreText.style.display === "none" || moreText.style.display === "") {
+                    moreText.style.display = "inline";
+                    this.textContent = "Read Less";
+                } else {
+                    moreText.style.display = "none";
+                    this.textContent = "Read More";
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>

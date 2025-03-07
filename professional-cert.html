@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Me - Jay Patel</title>
+    <style>
+        /* Global Styles */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background: url('images/wallpaper-2.2.jpeg') no-repeat center center / cover fixed;
+            font-family: 'Poppins', sans-serif;
+            color: #fff;
+            text-align: center;
+        }
+
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease-in-out;
+        }
+
+        a:hover {
+            color: #00ff84;
+        }
+
+        /* Header Styles */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        header .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #00ff84;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        header .logo:hover {
+            color: #ff0090;
+            transform: scale(1.1);
+        }
+
+        header nav ul {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        header nav ul li {
+            position: relative;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        header nav ul li:hover {
+            transform: scale(1.1);
+        }
+
+        /* Dropdown Menu */
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: transform 0.3s;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            min-width: 160px;
+            box-shadow: 0px 5px 10px rgba(0, 255, 255, 0.3);
+            border-radius: 10px;
+            text-align: left;
+        }
+
+        .dropdown-content a {
+            color: #fff;
+            padding: 12px 16px;
+            display: block;
+            transition: background 0.3s ease-in-out;
+        }
+
+        .dropdown-content a:hover {
+            background: rgba(0, 255, 132, 0.2);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        /* Hero Section */
+        .heading {
+            font-size: 60px;
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin: 50px 0;
+            text-shadow: 0px 0px 20px rgba(0, 255, 255, 0.8);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Image Container - Flexbox Fix */
+        .image-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            max-width: 90%;
+            margin: auto;
+            align-items: stretch;
+        }
+
+        /* Each Image Box */
+        .image-container .info {
+            width: calc(33.33% - 20px);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 15px;
+            box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            transition: transform 0.3s ease-in-out;
+            text-align: left;
+        }
+
+        .image-container .info:hover {
+            transform: translateY(-10px);
+        }
+
+        .info h2 {
+            font-size: 22px;
+            border-bottom: 2px solid #00ff84;
+            display: inline-block;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        .info img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 15px rgba(0, 255, 255, 0.5);
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .info img:hover {
+            transform: scale(1.05);
+        }
+
+        .info p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-top: 10px;
+            flex-grow: 1;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal img {
+            max-width: 90%;
+            max-height: 90%;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            font-size: 40px;
+            color: white;
+            cursor: pointer;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .image-container .info {
+                width: calc(50% - 20px);
+            }
+
+            .dropdown-content {
+                position: static;
+                display: block;
+                background: transparent;
+                box-shadow: none;
+            }
+
+            .dropdown-content a {
+                padding: 10px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .image-container .info {
+                width: 100%;
+            }
+        }
+
+        /* Stylish Read More button */
+        #read-more-btn {
+            background: transparent;
+            border: none;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            transition: color 0.3s ease-in-out;
+            margin-left: 5px;
+        }
+
+        @keyframes flicker {
+            0% {
+                opacity: 1;
+                text-shadow: 0 0 10px #00ff84, 0 0 20px #00ff84, 0 0 30px #00ff84;
+            }
+
+            50% {
+                opacity: 0.7;
+                text-shadow: 0 0 5px #00ff84, 0 0 15px #00ff84, 0 0 25px #00ff84;
+            }
+
+            100% {
+                opacity: 1;
+                text-shadow: 0 0 10px #00ff84, 0 0 20px #00ff84, 0 0 30px #00ff84;
+            }
+        }
+
+        .whoami-neon {
+            font-size: 45px;
+            font-weight: bold;
+            color: #00ff84;
+            text-transform: uppercase;
+            text-shadow: 0 0 10px #00ff84, 0 0 20px #00ff84, 0 0 30px #00ff84;
+            animation: flicker 1.5s infinite alternate;
+        }
+
+        @keyframes neon-glow {
+            0% {
+                text-shadow: 0 0 5px #00ff84, 0 0 10px #00ff84, 0 0 15px #00ff84;
+            }
+
+            50% {
+                text-shadow: 0 0 10px #00ff84, 0 0 20px #00ff84, 0 0 30px #00ff84;
+            }
+
+            100% {
+                text-shadow: 0 0 5px #00ff84, 0 0 10px #00ff84, 0 0 15px #00ff84;
+            }
+        }
+
+        .whoami-neoncert {
+            font-size: 48px;
+            font-weight: bold;
+            color: #00ff84;
+            text-transform: uppercase;
+            animation: neon-glow 1.5s infinite alternate;
+        }
+
+        /* Coming Soon Animation */
+        .coming-soon {
+            display: flex;
+            justify-content: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        .coming-soon span {
+            display: inline-block;
+            animation: fadeInOut 1.5s infinite alternate;
+        }
+
+        /* Delay each letter animation */
+        .coming-soon span:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .coming-soon span:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .coming-soon span:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .coming-soon span:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .coming-soon span:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        .coming-soon span:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+
+        .coming-soon span:nth-child(7) {
+            animation-delay: 0.6s;
+        }
+
+        .coming-soon span:nth-child(8) {
+            animation-delay: 0.7s;
+        }
+
+        .coming-soon span:nth-child(9) {
+            animation-delay: 0.8s;
+        }
+
+        .coming-soon span:nth-child(10) {
+            animation-delay: 0.9s;
+        }
+
+        .coming-soon span:nth-child(11) {
+            animation-delay: 1s;
+        }
+
+        @keyframes fadeInOut {
+            0% {
+                opacity: 0.2;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1.2);
+            }
+        }
+
+        @keyframes fire {
+            0% {
+                text-shadow: 0 0 5px #ff4500, 0 0 10px #ff4500, 0 0 20px #ff6347;
+            }
+
+            50% {
+                text-shadow: 0 0 10px #ff4500, 0 0 20px #ff6347, 0 0 30px #ff8c00;
+            }
+
+            100% {
+                text-shadow: 0 0 5px #ff4500, 0 0 10px #ff4500, 0 0 20px #ff6347;
+            }
+        }
+
+        .whoami-fire {
+            font-size: 40px;
+            font-weight: bold;
+            text-transform: uppercase;
+            color: #ff4500;
+            animation: fire 1.5s infinite alternate;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <div class="logo"><a href="index5.html">JAY PATEL</a></div>
+        <nav>
+            <ul>
+                <li><a href="index5.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <!-- <li><a href="Experience.html">Experience</a></li> -->
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Bug Hunting</a>
+                    <div class="dropdown-content">
+                        <a href="bughunt.html">vulnerabilities</a>
+                        <a href="cvehunt.html">Hunt's CVE</a>
+                    </div>
+                </li>
+                <li><a href="Education.html">Education</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Certificate</a>
+                    <div class="dropdown-content">
+                        <a href="cert.html">CTF Certificate's</a>
+                        <a href="professional-cert.html">Professional Certificate's</a>
+                    </div>
+                </li>
+                <li><a href="projects.html">Projects</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section id="aboutme">
+        <h1 class="heading">
+            <snap class="whoami-neoncert"># Projects</snap>
+        </h1>
+        <div class="image-container">
+            <div class="info">
+                <h2 class="whoami-neon"># Zip Cracker</h2>
+                <!-- Coming Soon Animation with Neon Effect -->
+                <div class="coming-soon whoami-fire">
+                    <span>C</span>
+                    <span>O</span>
+                    <span>M</span>
+                    <span>I</span>
+                    <span>N</span>
+                    <span>G</span>
+                    <span>&nbsp;</span>
+                    <span>S</span>
+                    <span>O</span>
+                    <span>O</span>
+                    <span>N</span>
+                </div>
+                <!-- <p>💻 Huntress CTF Challenge 2024 Recap 🔍
+                    I took on the Huntress CTF Challenge this year as a solo player, diving into a tough competition
+                    with over 7,368 players and 3,448 teams! I'm thrilled to share that I placed 553rd, solving 27 out
+                    of 71 challenges. 🥳
+                    <span id="more-text" style="display: none;">
+                        I can improve. Next time, I'm ready to level up my score and rank—more effort, deeper prep, and
+                        refined strategies ahead! 🚀
+                        I'll document the journey to a top position! 🎯
+                    </span>
+                    <button id="read-more-btn" class="whoami-neon read-more-btn" onclick="toggleText()">Read
+                        More</button>
+                </p> -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Modal for Image Display -->
+    <div id="imageModal" class="modal">
+        <span class="close-btn">&times;</span>
+        <img id="modalImage">
+    </div>
+
+    <script>
+        // Image Modal Functionality
+        const images = document.querySelectorAll('.clickable-image');
+        const modal = document.getElementById('imageModal');
+        const modalImage = document.getElementById('modalImage');
+        const closeBtn = document.querySelector('.close-btn');
+
+        images.forEach(img => {
+            img.addEventListener('click', function () {
+                modal.style.display = 'flex';
+                modalImage.src = this.src;
+            });
+        });
+
+        closeBtn.addEventListener('click', function () {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', function (event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        window.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Read More Toggle for Multiple Buttons
+        document.querySelectorAll('.read-more-btn').forEach(button => {
+            button.addEventListener('click', function () {
+                let moreText = this.previousElementSibling; // Gets the <span> directly before the button
+                if (moreText.style.display === "none" || moreText.style.display === "") {
+                    moreText.style.display = "inline";
+                    this.textContent = "Read Less";
+                } else {
+                    moreText.style.display = "none";
+                    this.textContent = "Read More";
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
